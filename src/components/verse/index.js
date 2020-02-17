@@ -23,19 +23,20 @@ class Verse extends Component {
     };
 
     const verses = JSON.parse(localStorage.getItem('allMyDaysVerses'));
-    const today = new Date().toLocaleDateString();
+    const today = new Date();
 
-    // Pick up from here next time, need to refactor, and fix UTC issue when localizing string time, basically too late in the day will think its tomorrow
+    // Pick up from here next time, need to refactor because verse of month works now but the date conversations are too complicated, perhaps use luxon instead
 
     if (verses) {
-      if (verses.today && new Date(verses.today.for_date).toLocaleDateString() === today) {
+      if (verses.today && new Date(verses.today.for_date.replace(/-/g, '\/')).toLocaleDateString() === today.toLocaleDateString()) {
         console.log("TODAY");
 
         this.setState({
           verse: verses.today.body,
           translation: verses.today.translation
         });
-      } else if (verses.tomorrow && new Date(verses.tomorrow.for_date).toLocaleDateString() === today) {
+        return false;
+      } else if (verses.tomorrow && new Date(verses.tomorrow.for_date.replace(/-/g, '\/')).toLocaleDateString() === today.toLocaleDateString()) {
         console.log("TOMORROW");
 
         this.setState({
@@ -43,16 +44,16 @@ class Verse extends Component {
           translation: verses.tomorrow.translation
         });
         this.getVersesCall();
-      } else if (verses.for_month && new Date(today.getFullYear(), today.getMonth(), 1).toLocaleDateString() === verses.for_month.for_date) {
+        return false;
+      } else if (verses.beginning_of_month && new Date(today.getFullYear(), today.getMonth(), 1).toLocaleDateString() === new Date(verses.beginning_of_month.for_date.replace(/-/g, '\/')).toLocaleDateString()) {
         console.log("FOR MONTH");
         this.setState({
-          verse: verses.for_month.body,
-          translation: verses.for_month.translation
+          verse: verses.beginning_of_month.body,
+          translation: verses.beginning_of_month.translation
         });
         this.getVersesCall();
+        return false;
       }
-
-      return false;
     }
 
       console.log("CATCH ALL");
