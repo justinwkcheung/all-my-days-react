@@ -24,6 +24,8 @@ class Clock extends Component {
     const time = `${formattedHour}:${formattedMinutes}`;
 
     this.setState({
+      hour: formattedHour,
+      minutes: formattedMinutes,
       time: time,
       timeOfDay: timeOfDay
     });
@@ -34,12 +36,15 @@ class Clock extends Component {
 
   formatHour(hour) {
     if (hour > 12) {
-      hour = hour - 12;
+      hour -= 12;
+      if (hour.toString().length === 1) {
+        hour = `0${hour}`;
+      }
     } else if (hour === 0) {
       hour = 12;
     }
 
-    return hour;
+    return hour.toString();
   }
 
   formatMinutes(minutes) {
@@ -49,7 +54,8 @@ class Clock extends Component {
   render() {
     return (
       <div className="current-time">
-        {this.state.time}
+        <div className="time-digits hour">{this.state.hour}</div>
+        <div className="time-digits minutes">{this.state.minutes}</div>
       </div>
     );
   }

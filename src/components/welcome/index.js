@@ -42,11 +42,12 @@ class Welcome extends Component {
       localStorage.allMyDaysName = this.state.name;
     }
   }
+
   renderName() {
     if (this.state.nameSubmitted) {
       return (
         <div className="welcome-name" onClick={this.changeName}>
-          Today's gonna be a good day, {this.state.name}
+          Rise and shine, {this.state.name}
         </div>
       );
     }

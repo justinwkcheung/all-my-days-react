@@ -32,7 +32,8 @@ class Background extends Component {
     // };
 
     axios.defaults.headers = {
-      Authorization: `Client-ID ${clientID}`
+      // Authorization: `Client-ID ${clientID}`
+      "Access-Control-Allow-Origin" : "*",
     };
 
     const request = axios.get("http://localhost:3000/api/v1/backgrounds", {

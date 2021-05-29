@@ -58,8 +58,12 @@ body {
 
   .current-time {
     position: relative;
-    font-size: 10rem;
+    font-size: 12rem;
     font-family: "Roboto Mono", "sans-serif";
+    margin-bottom: 3.5rem;
+    border: 1px solid white;
+    display: inline-block;
+    padding: 50px;
 
     .time-of-day {
       position: absolute;
@@ -68,6 +72,17 @@ body {
       margin-bottom: 3rem;
       margin-left: 0.75rem;
     }
+
+    .time-digits {
+      font-weight: normal;
+      line-height: 0.85;
+    }
+  }
+
+  .welcome-name {
+    font-family: "Roboto Mono", "sans-serif";
+    font-size: 3.5rem;
+    letter-spacing: -0.25px;
   }
 
   .name-input {
