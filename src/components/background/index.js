@@ -18,7 +18,7 @@ class Background extends Component {
   setBackgroundImage = () => {
     this.getBackgroundImage().then((backgroundData) => {
       this.setBackgroundLocalInfo(backgroundData);
-      this.setState({ backgroundUrl: backgroundData.background_today.file_url });
+      this.setState({ backgroundUrl: backgroundData.data[0].attributes.file_url });
     });
   }
 
