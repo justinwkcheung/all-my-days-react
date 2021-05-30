@@ -72,7 +72,7 @@ class Verse extends Component {
       if (response.data) {
         this.setVersesLocalInfo(response.data);
       }
-      return response.data
+      return response.data;
     });
 
     return request;
@@ -95,7 +95,7 @@ class Verse extends Component {
   render() {
     return (
       this.renderVerse()
-    )
+    );
   }
 }
 
