@@ -16,8 +16,12 @@ class Background extends Component {
   }
 
   setBackgroundImage = () => {
+    if (this.state.isToday) {
+      const background = localStorage.getItem('allmydays_backgroundDataToday');
+      console.log(background);
+    }
     this.getBackgroundImage().then((backgroundData) => {
-      this.setBackgroundLocalInfo(backgroundData);
+      this.setBackgroundLocalInfo(backgroundData.data);
       this.setState({ backgroundUrl: backgroundData.data[0].attributes.file_url });
     });
   }
@@ -48,9 +52,11 @@ class Background extends Component {
     return localStorage.allmydays_date === new Date().toLocaleDateString();
   }
 
-  setBackgroundLocalInfo = (imageUrl) => {
+  setBackgroundLocalInfo = (backgroundData) => {
+    console.log(backgroundData);
     localStorage.allmydays_date = new Date().toLocaleDateString();
-    localStorage.backgroundUrl = imageUrl;
+    localStorage.allmydays_backgroundToday = backgroundData[0].attributes.file_url;
+    localStorage.allmydays_backgroundTomorrow = backgroundData[1].attributes.file_url;
   }
 
   render() {

@@ -11,10 +11,10 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.allMyDaysName) {
+    if (localStorage.allmydays_name) {
       this.setState({
         nameSubmitted: true,
-        name: localStorage.allMyDaysName
+        name: localStorage.allmydays_name
       });
     }
   }
@@ -28,7 +28,7 @@ class Welcome extends Component {
     e.preventDefault();
     if (this.state.name !== "") {
       this.setState({ nameSubmitted: true });
-      localStorage.allMyDaysName = this.state.name;
+      localStorage.allmydays_name = this.state.name;
     }
   }
 
@@ -39,7 +39,7 @@ class Welcome extends Component {
   cancelChange = () => {
     if (this.state.name !== "") {
       this.setState({ nameSubmitted: true });
-      localStorage.allMyDaysName = this.state.name;
+      localStorage.allmydays_name = this.state.name;
     }
   }
 
