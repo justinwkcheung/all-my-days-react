@@ -43,17 +43,32 @@ class Welcome extends Component {
     }
   }
 
+  getWelcomeMessage = () => {
+    const today = new Date();
+    const hour = today.getHours();
+
+    if (hour >= 0 && hour <= 5) {
+      return "Sleep soundly";
+    } else if (hour >= 6 && hour <= 11) {
+      return "Rise and shine";
+    } else if (hour >= 18 && hour <= 23) {
+      return "Enjoy your evening";
+    }
+
+    return "Have a good day";
+  }
+
   renderName() {
     if (this.state.nameSubmitted) {
       return (
         <div className="welcome-name" onClick={this.changeName}>
-          Rise and shine, {this.state.name}
+          {this.getWelcomeMessage()}, {this.state.name}
         </div>
       );
     }
 
     return (
-      <div>
+      <div className="name-input-container">
         <form onSubmit={this.handleSubmit}>
           <input className="name-input" type="text" autoFocus value={this.state.name} onChange={this.handleChange} onBlur={this.cancelChange} placeholder="What's your name?" />
         </form>

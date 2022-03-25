@@ -25,12 +25,6 @@ class Verse extends Component {
   }
 
   getVerse = () => {
-    // const clientID = process.env.CORE_CLIENT_ID
-
-    // axios.defaults.headers = {
-    //   Authorization: `Client-ID ${clientID}`
-    // };
-
     const verses = JSON.parse(localStorage.getItem('allmydays_verses'));
     const today = new Date();
 
@@ -47,7 +41,6 @@ class Verse extends Component {
       }
     }
 
-    console.log("No local data");
     this.getVersesCall().then((data) => {
       const verseToday = data.attributes
       this.setState({
@@ -58,7 +51,7 @@ class Verse extends Component {
   }
 
   getVersesCall = () => {
-    const request = axios.get("http://localhost:3000/api/v1/verses", {
+    const request = axios.get("http://143.198.52.219//api/v1/verses", {
     }).then((response) => {
       if (response.data) {
         this.setVersesLocalInfo(response.data);

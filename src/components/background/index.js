@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+const defaultBackground = "https://images.unsplash.com/photo-1508615039623-a25605d2b022?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2089&q=80"
+
 class Background extends Component {
   constructor(props) {
     super(props);
@@ -17,32 +19,33 @@ class Background extends Component {
 
   setBackgroundImage = () => {
     if (this.state.isToday) {
-      const background = localStorage.getItem('allmydays_backgroundDataToday');
-      console.log(background);
+      const background = localStorage.getItem('allmydays_backgroundToday');
+      if (background) {
+        this.setState({ backgroundUrl: background });
+        return true;
+      }
     }
+
     this.getBackgroundImage().then((backgroundData) => {
-      this.setBackgroundLocalInfo(backgroundData.data);
-      this.setState({ backgroundUrl: backgroundData.data[0].attributes.file_url });
+      this.setBackgroundLocalInfo(backgroundData);
+      let backgroundToSet = defaultBackground;
+
+      if (backgroundData[0].data.attributes.file_url) {
+        backgroundToSet = backgroundData[0].data.attributes.file_url;
+      }
+
+      this.setState({ backgroundUrl: backgroundToSet });
     });
   }
 
   getBackgroundImage = () => {
-    const clientID = process.env.CORE_CLIENT_ID
-    // const params = {
-    //   w: 1920,
-    //   h: 1080,
-    //   orientation: "landscape",
-    //   collections: "365,827743"
-    // };
-
     axios.defaults.headers = {
-      // Authorization: `Client-ID ${clientID}`
       "Access-Control-Allow-Origin" : "*",
     };
 
-    const request = axios.get("http://localhost:3000/api/v1/backgrounds", {
+    const request = axios.get("http://143.198.52.219//api/v1/backgrounds", {
     }).then((response) => {
-      return response.data
+      return response.data;
     });
 
     return request;
@@ -53,10 +56,9 @@ class Background extends Component {
   }
 
   setBackgroundLocalInfo = (backgroundData) => {
-    console.log(backgroundData);
     localStorage.allmydays_date = new Date().toLocaleDateString();
-    localStorage.allmydays_backgroundToday = backgroundData[0].attributes.file_url;
-    localStorage.allmydays_backgroundTomorrow = backgroundData[1].attributes.file_url;
+    localStorage.allmydays_backgroundToday = backgroundData[0].data.attributes.file_url;
+    localStorage.allmydays_backgroundTomorrow = backgroundData[1].data.attributes.file_url;
   }
 
   render() {
