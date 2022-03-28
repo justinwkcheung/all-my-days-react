@@ -37,11 +37,12 @@ class Clock extends Component {
   formatHour(hour) {
     if (hour > 12) {
       hour -= 12;
-      if (hour.toString().length === 1) {
-        hour = `0${hour}`;
-      }
     } else if (hour === 0) {
       hour = 12;
+    }
+
+    if (hour < 10) {
+      hour = `0${hour}`;
     }
 
     return hour.toString();
