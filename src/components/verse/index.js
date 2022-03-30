@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+const defaultVerse = {
+  body: "For I know the plans I have for you, declares the Lord, plans for welfare and not for evil, to give you a future and a hope.",
+  translation: "ESV"
+};
+
 class Verse extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +33,7 @@ class Verse extends Component {
     const verses = JSON.parse(localStorage.getItem('allmydays_verses'));
     const today = new Date();
 
-    if (verses) {
+    if (verses && verses.data) {
       const verseTodayDate = this.getDate(verses.data);
       if (verseTodayDate === today.toLocaleDateString()) {
         const today = verses.data.attributes;
@@ -42,16 +47,24 @@ class Verse extends Component {
     }
 
     this.getVersesCall().then((data) => {
-      const verseToday = data.attributes
-      this.setState({
-        verse: verseToday.body,
-        translation: verseToday.translation
-      });
+      if (data) {
+        const verseToday = data.attributes
+
+        this.setState({
+          verse: verseToday.body,
+          translation: verseToday.translation
+        });
+      } else {
+        this.setState({
+          verse: defaultVerse.body,
+          translation: defaultVerse.translation
+        });
+      }
     });
   }
 
   getVersesCall = () => {
-    const request = axios.get("http://143.198.52.219//api/v1/verses", {
+    const request = axios.get("http://143.198.52.219/api/v1/verses", {
     }).then((response) => {
       if (response.data) {
         this.setVersesLocalInfo(response.data);
