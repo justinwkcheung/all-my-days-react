@@ -50,18 +50,16 @@ body {
 
 .title {
   color: #fff;
-    flex: 1 1 auto;
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-  h1 {
-    margin: 0;
-  }
+  flex: 1 1 auto;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
   .title-line {
     align-self: flex-end;
+    margin: 0;
+    width: 100;
   }
 
   .current-time {
