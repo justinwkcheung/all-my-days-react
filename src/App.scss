@@ -32,7 +32,52 @@ body {
   box-shadow: inset 0 0 25em 1px #000000be;
 
   transition: transform .3s ease-out;
-  z-index: -2;
+  z-index: 0;
+
+  .photo-credit-section {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+
+    @media (min-width: 768px) {
+      left: 20px;
+      top: 20px;
+    }
+
+    img {
+      width: 18px;
+      height: auto;
+      margin-right: 9px;
+
+      @media (min-width: 768px) {
+        width: 22px;
+        margin-right: 10px;
+      }
+    }
+
+    .credit-text {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.2s, opacity 0.2s linear;
+
+      color: #FFF;
+      font-size: 12px;
+      margin: 0;
+
+      @media (min-width: 768px) {
+        font-size: 13px;
+      }
+
+      &.seen {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.2s linear;
+      }
+    }
+  }
 }
 
 .verse-of-day {
@@ -42,8 +87,8 @@ body {
   align-self: flex-end;
   margin-bottom: 1.5rem;
 
-  @media (min-width: 1400px) {
-    font-size: 1.25rem;
+  @media (min-width: 1410px) {
+    font-size: 1.1125rem;
     margin-bottom: 2rem;
   }
 }
@@ -55,11 +100,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  pointer-events: none;
+  z-index: 1;
 
   .title-line {
     align-self: flex-end;
     margin: 0;
     width: 100%;
+    pointer-events: all;
   }
 
   .current-time {
@@ -69,15 +117,15 @@ body {
     margin-bottom: 2rem;
     border: 1px solid white;
     display: inline-block;
-    padding: 40px;
+    padding: 35px;
 
     @media (min-width: 768px) {
       font-size: 9rem;
       padding: 45px;
     }
 
-    @media (min-width: 1400px) {
-      font-size: 12rem;
+    @media (min-width: 1410px) {
+      font-size: 11rem;
       margin-bottom: 3.5rem;
       padding: 50px;
     }
@@ -98,14 +146,14 @@ body {
 
   .welcome-name {
     font-family: "Roboto Mono", "sans-serif";
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     letter-spacing: -0.25px;
 
     @media (min-width: 768px) {
       font-size: 2.75rem;
     }
 
-    @media (min-width: 1400px) {
+    @media (min-width: 1410px) {
       font-size: 3rem;
     }
   }
@@ -115,7 +163,16 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 74px;
+      height: 47.5px;
+
+
+      @media (min-width: 768px) {
+        height: 58px;
+      }
+
+      @media (min-width: 1410px) {
+        height: 63.5px;
+      }
     }
 
     .name-input {
@@ -133,6 +190,14 @@ body {
 
       &:focus {
         outline: none;
+      }
+
+      @media (min-width: 768px) {
+        font-size: 2.75rem;
+      }
+
+      @media (min-width: 1410px) {
+        font-size: 3rem;
       }
     }
   }
